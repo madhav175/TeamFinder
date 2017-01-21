@@ -43,12 +43,12 @@ public class ProfileActivity  extends AppCompatActivity {
 
         shareDialog = new ShareDialog(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        Button fab = (Button) findViewById(R.id.next);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShareLinkContent content = new ShareLinkContent.Builder().build();
-                shareDialog.show(content);
+                Intent main = new Intent(ProfileActivity.this, Member_Activity.class);
+                startActivity(main);
             }
         });
 
