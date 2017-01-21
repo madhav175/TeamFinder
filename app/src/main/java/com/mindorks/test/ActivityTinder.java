@@ -1,9 +1,15 @@
 package com.mindorks.test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.mindorks.butterknifelite.ButterKnifeLite;
 import com.mindorks.butterknifelite.annotations.BindView;
@@ -25,7 +31,50 @@ public class ActivityTinder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tinder_swipe);
         ButterKnifeLite.bind(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+       // ab.setHomeAsUpIndicator(R.drawable.ic_menu); // set a custom icon for the default home button
+        ab.setDisplayShowHomeEnabled(true); // show or hide the default home button
+        ab.setDisplayHomeAsUpEnabled(false);
+        ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
+        ab.setDisplayShowTitleEnabled(false); // disable the default title element here (for centered title)
 
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent intent = null;
+        if (id == R.id.event) {
+            return true;
+        } else if (id == R.id.matches) {
+            //  intent = new Intent(this, PaymentTabActivity.class);
+            //  startActivity(intent);
+            return true;
+        }else if (id == R.id.home) {
+            //intent = new Intent(this, DeliveryTabActivity.class);
+            //  startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.profile) {
+            intent = new Intent(this, ProfileActivity.class);
+             startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

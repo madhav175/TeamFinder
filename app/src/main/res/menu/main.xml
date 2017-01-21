@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mindorks.test.ActivityTinder"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="Home"/>
+    <item
+        android:id="@+id/profile"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="Profile"/>
+    <item
+        android:id="@+id/event"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="create event"/>
+    <item
+        android:id="@+id/matches"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="matches"/>
+
+</menu>

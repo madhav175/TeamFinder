@@ -74,6 +74,8 @@ public class Member_Activity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
+                startActivity(main);
                 String event = inputEvent.getText().toString().trim();
                 String team = inputTeam.getText().toString().trim();
                 String skills = inputSkills.getText().toString().trim();
