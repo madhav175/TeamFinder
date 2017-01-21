@@ -32,6 +32,10 @@
             android:name="com.mindorks.test.Member_Activity"
             ></activity>
         <activity
+            android:name="com.mindorks.test.Event_Activity"
+            >
+        </activity>
+        <activity
             android:name="com.mindorks.test.ProfileActivity"
             ></activity>
     </application>
