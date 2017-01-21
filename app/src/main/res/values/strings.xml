@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PlaceHolderViewLib</string>
+    <string name="home">Home</string>
+    <string name="News">News</string>
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+    <string name="facebook_app_id">1836302879973083</string>
+</resources>
