@@ -73,6 +73,8 @@ public class EventRegister {
     public void setSkills(String size) {
         this.skills = size;
     }
+    private String phoneNumber;
+
 
     public String getId() {
         return id;
@@ -167,6 +169,13 @@ public class EventRegister {
     public void setUsd(user usd) {
         this.usd = usd;
     }
+
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+
+    public String getPhoneNumber(String phoneNumber) {return phoneNumber;}
+
+
+
 
 
 
