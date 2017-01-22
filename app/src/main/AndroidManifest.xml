@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mindorks.test">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -9,7 +11,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:label="@string/app_name"
@@ -20,24 +25,21 @@
             android:authorities="com.facebook.app.FacebookContentProvider"
             android:exported="true" />
 
-        <activity android:name="com.mindorks.test.LoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.mindorks.test.ActivityTinder"
-            ></activity>
-        <activity
-            android:name="com.mindorks.test.Member_Activity"
-            ></activity>
-        <activity
-            android:name="com.mindorks.test.Event_Activity"
-            >
+        <activity android:name=".ActivityTinder" />
+        <activity android:name=".Member_Activity" />
+        <activity android:name=".Event_Activity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".MatchActivity">
+           
+
         </activity>
-        <activity
-            android:name="com.mindorks.test.ProfileActivity"
-            ></activity>
     </application>
+
 </manifest>
