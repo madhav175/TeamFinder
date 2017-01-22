@@ -16,13 +16,6 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
 
         <EditText
             android:id="@+id/event"
@@ -73,20 +66,62 @@
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
+
+    <EditText
+        android:id="@+id/skills1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:hint="Skills"
+        android:inputType="textShortMessage"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint" />
+
+
+    <EditText
+        android:id="@+id/skills2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:hint="Skills(optional)"
+        android:inputType="textShortMessage"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint" />
+
+
+    <EditText
+        android:id="@+id/skills3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:hint="Skills(optional)"
+        android:inputType="textShortMessage"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint" />
+
+    <!-- Login Button -->
         <EditText
-            android:id="@+id/looking"
+            android:id="@+id/phone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/white"
-            android:hint="Looking Skills"
-            android:inputType="text"
+            android:hint="Contact number"
+            android:digits="0123456789+"
+            android:inputType="phone"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
-
-        <!-- Login Button -->
 
         <Button
             android:id="@+id/btnLogin"
@@ -109,7 +144,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" /-->
-    </LinearLayout>
 
 </LinearLayout>
    </FrameLayout>
