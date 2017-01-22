@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_login">
-    <include layout="@layout/toolbar_home"/>
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+
+    <LinearLayout
+    android:layout_width="372dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="?attr/actionBarSize"
     android:background="@color/bg_login"
     android:gravity="center"
@@ -25,7 +25,7 @@
             android:background="@color/white"
             android:hint="Event Tag"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
+            android:padding="5dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
@@ -38,27 +38,41 @@
             android:background="@color/white"
             android:hint="Idea (Optional)"
             android:inputType="textShortMessage"
-            android:padding="10dp"
+            android:padding="5dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
         <EditText
-            android:id="@+id/skills"
+            android:id="@+id/myskills1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/white"
-            android:hint="Skills"
+            android:hint="My Skills"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
+
+    <EditText
+        android:id="@+id/myskills2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
+        android:hint="My Skills(Optional)"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint" />
+
         <EditText
             android:id="@+id/team"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/white"
             android:hint="Your Team Size"
             android:inputType="number"
@@ -71,9 +85,9 @@
         android:id="@+id/skills1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/white"
-        android:hint="Skills"
+        android:hint="Skills I'm looking for"
         android:inputType="textShortMessage"
         android:padding="10dp"
         android:singleLine="true"
@@ -85,9 +99,9 @@
         android:id="@+id/skills2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/white"
-        android:hint="Skills(optional)"
+        android:hint="Skills I'm looking for(optional)"
         android:inputType="textShortMessage"
         android:padding="10dp"
         android:singleLine="true"
@@ -99,9 +113,9 @@
         android:id="@+id/skills3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/white"
-        android:hint="Skills(optional)"
+        android:hint="Skills I'm looking for(optional)"
         android:inputType="textShortMessage"
         android:padding="10dp"
         android:singleLine="true"
@@ -113,7 +127,7 @@
             android:id="@+id/phone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/white"
             android:hint="Contact number"
             android:digits="0123456789+"
@@ -123,16 +137,16 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/btn_login_bg"
-            android:text="Create "
-            android:textColor="@color/btn_login" />
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@color/btn_login_bg"
+        android:text="Create "
+        android:textColor="@color/btn_login" />
 
-        <!-- Link to Login Screen -->
+    <!-- Link to Login Screen -->
 
         <!--Button
             android:id="@+id/btnLinkToRegisterScreen"
@@ -146,4 +160,6 @@
             android:textSize="15dp" /-->
 
 </LinearLayout>
-   </FrameLayout>
+
+    <include layout="@layout/toolbar_home"/>
+</FrameLayout>

@@ -33,8 +33,13 @@ public class Member_Activity extends Activity {
     private Button btnLinkToLogin;
     private EditText inputEvent;
     private EditText inputTeam;
-    private EditText inputSkills;
+    private EditText mySkills1;
+    private EditText mySkills2;
+    private EditText skills1;
+    private EditText skills2;
+    private EditText skills3;
     private EditText inputIdea;
+    private EditText number;
     private EditText inputLooking;
     private ProgressDialog pDialog;
     private PrefManager pref;
@@ -48,9 +53,14 @@ public class Member_Activity extends Activity {
         pref = new PrefManager(getApplicationContext());
         inputEvent = (EditText) findViewById(R.id.event);
         inputTeam = (EditText) findViewById(R.id.team);
-        inputSkills = (EditText) findViewById(R.id.skills);
+        mySkills1 = (EditText) findViewById(R.id.myskills1);
+        mySkills2 = (EditText) findViewById(R.id.myskills2);
+        skills1 = (EditText) findViewById(R.id.skills1);
+        skills2 = (EditText) findViewById(R.id.skills2);
+        skills3 = (EditText) findViewById(R.id.skills3);
+        number = (EditText) findViewById(R.id.phone);
+
         inputIdea = (EditText) findViewById(R.id.idea);
-        inputLooking = (EditText) findViewById(R.id.looking);
         btnRegister = (Button) findViewById(R.id.btnLogin);
 
         // Progress dialog
@@ -79,13 +89,58 @@ public class Member_Activity extends Activity {
                 //startActivity(main);
                 String event = inputEvent.getText().toString().trim();
                 String team = inputTeam.getText().toString().trim();
-                String skills = inputSkills.getText().toString().trim();
+                String yourskills1 = skills1.getText().toString().trim();
+                String yourskills2 = skills2.getText().toString().trim();
+                String yourskills3 = skills3.getText().toString().trim();
+                String myskills1 = mySkills1.getText().toString().trim();
+                String myskills2 = mySkills2.getText().toString().trim();
                 String idea = inputIdea.getText().toString().trim();
-                String looking = inputLooking.getText().toString().trim();
+                String contact = number.getText().toString().trim();
+
+                if (!event.isEmpty() && !team.isEmpty() && !yourskills1.isEmpty() && !myskills1.isEmpty()) {
+                    String tag_string_req = "req_register";
+
+                    pDialog.setMessage("Registering ...");
+                    showDialog();
+                    EventRegister eventObject = new EventRegister();
+                    eventObject.setEventId(event);
+                    eventObject.setIdea(idea);
+                    eventObject.setTeamsize(Integer.valueOf(team));
+                    eventObject.setPhoneNumber(contact);
+                    eventObject.setSkill1(yourskills1);
+                    eventObject.setSkill2(yourskills2);
+                    eventObject.setSkill3(yourskills2);
+                    eventObject.setMySkill1(myskills1);
+                    eventObject.setMySkill2(myskills2);
+
+                    GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
+                            com.android.volley.Request.Method.POST,
+                            AppConfig.URL_EVENTREGISTER,
+                            EventRegister.class,
+                            eventObject ,
+                            new Response.Listener<EventRegister>() {
+
+                                @Override
+                                public void onResponse(EventRegister event) {
+                                    pref.setMemid(event.getId());
+
+                                    Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
+
+                                    startActivity(main);
+                                    finish();
+
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
+                        }
+                    });
+
+                    // Adding request to request queue
+                    MyApplication.getInstance().addToRequestQueue(req, tag_string_req);
 
 
-                if (!event.isEmpty() && !team.isEmpty() /*&& !skills.isEmpty()*/) {
-                    registerUser(event, team, skills, idea,looking);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)

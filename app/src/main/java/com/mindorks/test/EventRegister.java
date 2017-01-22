@@ -17,6 +17,13 @@ public class EventRegister {
     private List<String> lookingForSkills;
     private TreeSet<String> teamMemberId;
     private String idea;
+    private String phoneNumber;
+    private String mySkill1;
+    private String mySkill2;
+    private String skill1;
+    private String skill2;
+    private String skill3;
+
 
     public String getId() {
         return id;
@@ -105,6 +112,22 @@ public class EventRegister {
             return false;
         return true;
     }
+
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+    public void setSkill1(String skill1) {this.skill1 = skill1;}
+    public void setSkill2(String skill2) {this.skill2 = skill2;}
+    public void setSkill3(String skill3) {this.skill3 = skill3;}
+    public void setMySkill1(String myskill1) {this.mySkill1 = myskill1;}
+    public void setMySkill2(String myskill2) {this.mySkill2 = myskill2;}
+
+    public String getPhoneNumber(String phoneNumber) {return phoneNumber;}
+    public String getSkill1(String skill1) {return skill1;}
+    public String getSkill2(String skill2) {return skill2;}
+    public String getSkill3(String skill3) {return skill3;}
+    public String getMySkill1(String myskill1) {return mySkill1;}
+    public String getMySkill2(String myskill2) {return mySkill2;}
+
+
 
 
 
