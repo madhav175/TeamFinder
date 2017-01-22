@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -106,12 +107,14 @@ public class TinderCard {
         Log.d("DEBUG", "onSwipedIn");
         String tag_string_req = "req_register";
 
-        GsonRequest<EventRegister> jsObjRequest = new GsonRequest<EventRegister>(Request.Method.GET,
+        GsonRequest<Boolean> jsObjRequest = new GsonRequest<Boolean>(Request.Method.GET,
                 AppConfig.URL_GETADD+"id="+id+"&memId="+event.getId()/*pref.getEventid()+"/"+pref.getUserID()+"/"+pref.getMemid()*/,
-                EventRegister.class, new Response.Listener<EventRegister>() {
+                Boolean.class, new Response.Listener<Boolean>() {
             @Override
-            public void onResponse(EventRegister response) {
+            public void onResponse(Boolean response) {
                 // ReviewsHandleOkResponse(response);
+                if (response.booleanValue())
+                    Toast.makeText(mContext, "Match !", Toast.LENGTH_SHORT).show();
                 //cards = response;
                 //response.
 

@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,11 +108,17 @@ public class Member_Activity extends Activity {
                     eventObject.setIdea(idea);
                     eventObject.setTeamsize(Integer.valueOf(team));
                     eventObject.setPhoneNumber(contact);
-                    eventObject.setSkill1(yourskills1);
-                    eventObject.setSkill2(yourskills2);
-                    eventObject.setSkill3(yourskills2);
-                    eventObject.setMySkill1(myskills1);
-                    eventObject.setMySkill2(myskills2);
+
+                    ArrayList<String> skills = new ArrayList<String>();
+                    skills.add(yourskills1);
+                    skills.add(yourskills2);
+                    skills.add(yourskills2);
+                    eventObject.setLookingForSkills(skills);
+
+                    ArrayList<String> myskills = new ArrayList<String>();
+                    skills.add(myskills1);
+                    skills.add(myskills2);
+                    eventObject.setSkillset(myskills);
 
                     GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
                             com.android.volley.Request.Method.POST,
