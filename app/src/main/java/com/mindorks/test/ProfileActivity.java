@@ -43,7 +43,15 @@ public class ProfileActivity  extends AppCompatActivity {
 
         shareDialog = new ShareDialog(this);
 
-        Button fab = (Button) findViewById(R.id.next);
+        Button create = (Button) findViewById(R.id.Create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent main = new Intent(ProfileActivity.this, Event_Activity.class);
+                startActivity(main);
+            }
+        });
+        Button fab = (Button) findViewById(R.id.Join);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,11 +62,11 @@ public class ProfileActivity  extends AppCompatActivity {
 
         Bundle inBundle = getIntent().getExtras();
         String name = inBundle.get("name").toString();
-        String surname = inBundle.get("surname").toString();
+       // String surname = inBundle.get("surname").toString();
         String imageUrl = inBundle.get("imageUrl").toString();
 
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
-        nameView.setText("" + name + " " + surname);
+        nameView.setText("" + name );
         Button logout = (Button)findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

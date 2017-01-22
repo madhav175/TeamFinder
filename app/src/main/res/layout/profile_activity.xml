@@ -22,16 +22,40 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+
     <Button
-        android:id="@+id/next"
-        android:layout_width="fill_parent"
+        android:id="@+id/Join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dip"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="6dip"
+
+        android:background="@color/btn_login"
+
+        android:text="Join "
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/Create"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
-        android:background="@color/btn_login"
-        android:layout_gravity="bottom"
-        android:text="Next "
-        android:textColor="@color/white" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="6dip"
+        android:background="@color/btn_logut_bg"
 
+        android:text="Create Event "
+        android:textColor="@color/white" />
+    </LinearLayout>
     <!--android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

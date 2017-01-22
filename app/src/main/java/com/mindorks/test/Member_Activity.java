@@ -37,6 +37,7 @@ public class Member_Activity extends Activity {
     private EditText inputIdea;
     private EditText inputLooking;
     private ProgressDialog pDialog;
+    private PrefManager pref;
    // private SessionManager session;
     private SQLiteHandler db;
 
@@ -44,7 +45,7 @@ public class Member_Activity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mem_create_activity);
-
+        pref = new PrefManager(getApplicationContext());
         inputEvent = (EditText) findViewById(R.id.event);
         inputTeam = (EditText) findViewById(R.id.team);
         inputSkills = (EditText) findViewById(R.id.skills);
@@ -74,8 +75,8 @@ public class Member_Activity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
-                startActivity(main);
+                //Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
+                //startActivity(main);
                 String event = inputEvent.getText().toString().trim();
                 String team = inputTeam.getText().toString().trim();
                 String skills = inputSkills.getText().toString().trim();
@@ -83,7 +84,7 @@ public class Member_Activity extends Activity {
                 String looking = inputLooking.getText().toString().trim();
 
 
-                if (!event.isEmpty() && !team.isEmpty() && !skills.isEmpty()) {
+                if (!event.isEmpty() && !team.isEmpty() /*&& !skills.isEmpty()*/) {
                     registerUser(event, team, skills, idea,looking);
                 } else {
                     Toast.makeText(getApplicationContext(),
@@ -110,89 +111,44 @@ public class Member_Activity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String event, final String team, final String skills,
+    private void registerUser(final String eventid, final String team, final String skills,
                               final String idea,final String looking) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
         pDialog.setMessage("Registering ...");
         showDialog();
+        EventRegister event = new EventRegister();
+        event.setEventId(eventid);
+        event.setIdea(idea);
+        event.setTeamsize(Integer.valueOf(team));
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
+        GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
+                com.android.volley.Request.Method.POST,
+                AppConfig.URL_EVENTREGISTER,
+                EventRegister.class,
+                event ,
+                new Response.Listener<EventRegister>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
-                hideDialog();
+                    @Override
+                    public void onResponse(EventRegister event) {
+                        pref.setMemid(event.getId());
 
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
+                        Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
 
-                        JSONObject user = jObj.getJSONObject("user");
-                        String event = user.getString("name");
-                        String idea = user.getString("idea");
-                        String skills = user.getString("skills");
-                        int team = Integer.valueOf(user.getString("team"));
-                        String looking = user.getString("looking");
-                        String created_at = user
-                                .getString("created_at");
-
-                        // Inserting row in users table
-                        db.addUser(event, skills,team, idea ,looking , created_at);
-
-                        Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
-
-                        // Launch login activity
-                        Intent intent = new Intent(
-                                Member_Activity.this,
-                                LoginActivity.class);
-                        startActivity(intent);
+                        startActivity(main);
                         finish();
-                    } else {
 
-                        // Error occurred in registration. Get the error
-                        // message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
+                }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
+            public void onErrorResponse(VolleyError volleyError) {
+                if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
             }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("event", event);
-                params.put("team", team);
-                params.put("skills", skills);
-
-                return params;
-            }
-
-        };
+        });
 
         // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        MyApplication.getInstance().addToRequestQueue(req, tag_string_req);
     }
 
     private void showDialog() {

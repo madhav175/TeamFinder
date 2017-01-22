@@ -44,7 +44,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_logut_bg"
+            android:background="@color/input_register_hint"
             android:layout_gravity="center_horizontal"
             android:text="Logout"
             android:textAllCaps="false"

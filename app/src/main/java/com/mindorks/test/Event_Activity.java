@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.mindorks.test.R.id.profile;
 
 /**
  * Created by nidhi on 1/21/17.
@@ -36,13 +37,14 @@ public class Event_Activity extends Activity {
     private EditText inputDates;
     private EditText inputTeamSize;
     private ProgressDialog pDialog;
+    private PrefManager pref;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_create_activity);
-
+        pref = new PrefManager(getApplicationContext());
         inputEvent = (EditText) findViewById(R.id.event);
         inputLocation = (EditText) findViewById(R.id.university);
         inputTeamSize = (EditText) findViewById(R.id.teamsize);
@@ -87,7 +89,7 @@ public class Event_Activity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerEvent(final String event, final String location,
+    private void registerEvent(final String eventname, final String location,
                               final String teamsize) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -95,70 +97,39 @@ public class Event_Activity extends Activity {
         pDialog.setMessage("Adding Event ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String event = user.getString("name");
-                        String idea = user.getString("idea");
-                        String skills = user.getString("skills");
-                        int team = Integer.valueOf(user.getString("team"));
-                        String looking = user.getString("looking");
-                        String created_at = user
-                                .getString("created_at");
+       // final JSONObject jsonBody = new JSONObject(params);
+        EventDetails event = new EventDetails();
+        event.setName(eventname);
+        event.setEventLocation(location);
+        event.setTeamSize(Integer.valueOf(teamsize));
 
 
-                        // send to backend service
+        GsonRequest<EventDetails> req = new GsonRequest<EventDetails>(
+                com.android.volley.Request.Method.POST,
+                AppConfig.URL_EVENT,
+                EventDetails.class,
+                event ,
+                new Response.Listener<EventDetails>() {
 
-                        Toast.makeText(getApplicationContext(), "Event successfully added. Start Looking for members now!", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onResponse(EventDetails event) {
+                        pref.setEventid(event.getId());
 
-                        // go back to home page in this
-//                        // Launch login activity
-//                        Intent intent = new Intent(
-//                                Event_Activity.this,
-//                                LoginActivity.class);
-//                        startActivity(intent);
-//                        finish();
-                    } else {
+                        Intent main = new Intent(Event_Activity.this, Member_Activity.class);
 
-                        // Error occurred in registration. Get the error
-                        // message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        startActivity(main);
+                        finish();
+
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
+                }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
+            public void onErrorResponse(VolleyError volleyError) {
+                if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
             }
-        }) {
-        };
+        });
 
         // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        MyApplication.getInstance().addToRequestQueue(req, tag_string_req);
     }
 
     private void showDialog() {
