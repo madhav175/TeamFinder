@@ -1,6 +1,11 @@
 package com.mindorks.test;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 /**
@@ -15,8 +20,59 @@ public class EventRegister {
     private List<String> skillset;
     private Integer teamsize;
     private List<String> lookingForSkills;
-    private TreeSet<String> teamMemberId;
+    private Map<String,Boolean> teamMemberId;
     private String idea;
+    private user usd;
+
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("url")
+    @Expose
+    private String imageUrl;
+
+    @SerializedName("skills")
+    @Expose
+    private String skills;
+
+    @SerializedName("size")
+    @Expose
+    private String size;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getAge() {
+        return size;
+    }
+
+    public void setAge(String size) {
+        this.size = size;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String size) {
+        this.skills = size;
+    }
 
     public String getId() {
         return id;
@@ -30,6 +86,7 @@ public class EventRegister {
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
+
     public String getEventId() {
         return eventId;
     }
@@ -57,16 +114,15 @@ public class EventRegister {
 
 
 
-    public  TreeSet<String> getTeamMemberId() {
-        if(teamMemberId!=null){
-            return teamMemberId;
-        }else {
-            return new  TreeSet<String>();
-        }
-
-    }
-    public void setTeamMemberId(TreeSet<String>teamMemberId) {
+    public void setTeamMemberId(Map<String, Boolean> teamMemberId) {
         this.teamMemberId = teamMemberId;
+    }
+
+    public Map<String, Boolean> getTeamMemberId() {
+        if(null != teamMemberId)
+            return teamMemberId;
+        else
+            return new HashMap<String,Boolean>();
     }
     public String getIdea() {
         return idea;
@@ -104,6 +160,12 @@ public class EventRegister {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+    public user getUsd() {
+        return usd;
+    }
+    public void setUsd(user usd) {
+        this.usd = usd;
     }
 
 

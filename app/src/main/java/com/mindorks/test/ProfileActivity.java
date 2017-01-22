@@ -32,12 +32,14 @@ public class ProfileActivity  extends AppCompatActivity {
 
     private ShareDialog shareDialog;
     private Button logout;
+    private PrefManager pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.profile_activity);
+        pref = new PrefManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,6 +74,7 @@ public class ProfileActivity  extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
+                pref.clearSession();
                 Intent login = new Intent(ProfileActivity.this, LoginActivity.class);
                 startActivity(login);
                 finish();

@@ -13,4 +13,6 @@ public class AppConfig {
     public static String URL_EVENT = "http://10.0.2.2:3000//api/event";
     public static String URL_EVENTREGISTER = "http://10.0.2.2:3000//api/event/register";
     public static String URL_GET = "http://10.0.2.2:3000//api/userLogin/27";
+    public static String URL_GETCARD = "http://10.0.2.2:3000//api/event/register/";
+    public static String URL_GETADD = "http://10.0.2.2:3000//api/event/add?";
 }

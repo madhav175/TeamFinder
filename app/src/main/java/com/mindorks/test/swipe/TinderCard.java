@@ -12,6 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -25,8 +29,13 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeView;
+import com.mindorks.test.AppConfig;
+import com.mindorks.test.EventRegister;
+import com.mindorks.test.GsonRequest;
+import com.mindorks.test.MyApplication;
 import com.mindorks.test.R;
 import com.mindorks.test.Utils;
+import com.mindorks.test.user;
 
 /**
  * Created by janisharali on 19/08/16.
@@ -36,6 +45,10 @@ import com.mindorks.test.Utils;
 public class TinderCard {
 
     private static int count;
+    private EventRegister event;
+    private Context mContext;
+    private String id;
+    private SwipePlaceHolderView mSwipeView;
 
     @View(R.id.profileImageView)
     private ImageView profileImageView;
@@ -43,17 +56,39 @@ public class TinderCard {
     @View(R.id.nameAgeTxt)
     private TextView nameAgeTxt;
 
-    @View(R.id.locationNameTxt)
+    @View(R.id.skills)
     private TextView locationNameTxt;
+    @View(R.id.idea)
+    private TextView idea;
 
-    @Click(R.id.profileImageView)
+    /*@Click(R.id.idea)
     private void onClick(){
         Log.d("DEBUG", "profileImageView");
+    }*/
+    public TinderCard(Context context, EventRegister event, SwipePlaceHolderView swipeView,String id) {
+        this.mContext = context;
+        this.event =  event;
+        this.mSwipeView = swipeView;
+        this.id = id;
+    }
+
+    public TinderCard(Context context, EventRegister event, SwipePlaceHolderView swipeView) {
+        this.mContext = context;
+        this.event =  event;
+        this.mSwipeView = swipeView;
     }
 
     @Resolve
     private void onResolve(){
-        nameAgeTxt.setText("Name " + count++);
+        user usd = event.getUsd();
+        Glide.with(mContext).load(usd.getUrl()).into(profileImageView);
+        nameAgeTxt.setText(usd.getName() + ", " + event.getTeamsize());
+        String skills = "";
+        for(String s :event.getSkillset()){
+            skills = s+ ",";
+        }
+        locationNameTxt.setText(skills);
+        idea.setText(event.getIdea());
     }
 
     @SwipeOut
@@ -69,6 +104,29 @@ public class TinderCard {
     @SwipeIn
     private void onSwipeIn(){
         Log.d("DEBUG", "onSwipedIn");
+        String tag_string_req = "req_register";
+
+        GsonRequest<EventRegister> jsObjRequest = new GsonRequest<EventRegister>(Request.Method.GET,
+                AppConfig.URL_GETADD+"id="+id+"&memId="+event.getId()/*pref.getEventid()+"/"+pref.getUserID()+"/"+pref.getMemid()*/,
+                EventRegister.class, new Response.Listener<EventRegister>() {
+            @Override
+            public void onResponse(EventRegister response) {
+                // ReviewsHandleOkResponse(response);
+                //cards = response;
+                //response.
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //ReviewsHandleErrorResponse(error);
+                //hideDialog();
+            }
+        });
+
+
+        // Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(jsObjRequest, tag_string_req);
     }
 
     @SwipeInState

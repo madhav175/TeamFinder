@@ -121,6 +121,7 @@ public class Member_Activity extends Activity {
         EventRegister event = new EventRegister();
         event.setEventId(eventid);
         event.setIdea(idea);
+        event.setUser_id(pref.getUserID());
         event.setTeamsize(Integer.valueOf(team));
 
         GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
@@ -133,6 +134,8 @@ public class Member_Activity extends Activity {
                     @Override
                     public void onResponse(EventRegister event) {
                         pref.setMemid(event.getId());
+                        pref.setEventid(event.getEventId());
+                        pref.setUserid(event.getUser_id());
 
                         Intent main = new Intent(Member_Activity.this, ActivityTinder.class);
 
@@ -144,6 +147,8 @@ public class Member_Activity extends Activity {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
+
+                hideDialog();
             }
         });
 

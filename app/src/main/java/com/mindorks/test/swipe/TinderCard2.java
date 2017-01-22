@@ -32,7 +32,7 @@ public class TinderCard2 {
     @View(R.id.nameAgeTxt)
     private TextView nameAgeTxt;
 
-    @View(R.id.locationNameTxt)
+    @View(R.id.skills)
     private TextView locationNameTxt;
 
     @Click(R.id.profileImageView)
