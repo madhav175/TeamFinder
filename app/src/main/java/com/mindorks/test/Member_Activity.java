@@ -106,8 +106,9 @@ public class Member_Activity extends Activity {
                     EventRegister eventObject = new EventRegister();
                     eventObject.setEventId(event);
                     eventObject.setIdea(idea);
+                    eventObject.setUser_id(pref.getUserID());
                     eventObject.setTeamsize(Integer.valueOf(team));
-                    eventObject.setPhoneNumber(contact);
+                    eventObject.setPhnNbr(contact);
 
                     ArrayList<String> skills = new ArrayList<String>();
                     skills.add(yourskills1);
@@ -116,11 +117,12 @@ public class Member_Activity extends Activity {
                     eventObject.setLookingForSkills(skills);
 
                     ArrayList<String> myskills = new ArrayList<String>();
-                    skills.add(myskills1);
-                    skills.add(myskills2);
+                    myskills.add(myskills1);
+                    myskills.add(myskills2);
                     eventObject.setSkillset(myskills);
+                    registerUser(event,team,myskills,idea,skills);
 
-                    GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
+                   /* GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
                             com.android.volley.Request.Method.POST,
                             AppConfig.URL_EVENTREGISTER,
                             EventRegister.class,
@@ -140,12 +142,13 @@ public class Member_Activity extends Activity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
+
+                            hideDialog();
                         }
                     });
 
                     // Adding request to request queue
-                    MyApplication.getInstance().addToRequestQueue(req, tag_string_req);
+                    MyApplication.getInstance().addToRequestQueue(req, tag_string_req);*/
 
 
                 } else {
@@ -173,8 +176,8 @@ public class Member_Activity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String eventid, final String team, final String skills,
-                              final String idea,final String looking) {
+    private void registerUser(final String eventid, final String team, final ArrayList<String> myskills ,
+                              final String idea,final ArrayList<String> skills ) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -184,6 +187,8 @@ public class Member_Activity extends Activity {
         event.setEventId(eventid);
         event.setIdea(idea);
         event.setUser_id(pref.getUserID());
+        event.setLookingForSkills(skills);
+        event.setSkillset(myskills);
         event.setTeamsize(Integer.valueOf(team));
 
         GsonRequest<EventRegister> req = new GsonRequest<EventRegister>(
@@ -208,7 +213,7 @@ public class Member_Activity extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
+             //   if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
 
                 hideDialog();
             }

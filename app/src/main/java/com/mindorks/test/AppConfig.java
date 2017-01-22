@@ -6,7 +6,7 @@ package com.mindorks.test;
 
 public class AppConfig {
     // Server user login url
-    public static String server_ip =  "8b76fc98.ngrok.io";
+    public static String server_ip =  "10.0.2.2:3000/"/*"8b76fc98.ngrok.io"*/;
     public static String URL_LOGIN = "http://" + server_ip + "/android_login_api/login.php";
 
     // Server user register url

@@ -180,6 +180,11 @@ public class PrefManager {
     public String getMemid() {
         return pref.getString(KEY_MEMID, null);
     }
+    public void setBoolean(boolean log) {
+
+        editor.putBoolean(KEY_IS_LOGGED_IN, log);
+        editor.commit();
+    }
 
     public boolean isLoggedIn() {
         return pref.getBoolean(KEY_IS_LOGGED_IN, false);

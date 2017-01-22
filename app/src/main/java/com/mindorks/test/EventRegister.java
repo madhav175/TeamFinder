@@ -23,6 +23,7 @@ public class EventRegister {
     private Map<String,Boolean> teamMemberId;
     private String idea;
     private user usd;
+    private String phnNbr;
 
 
     @SerializedName("name")
@@ -73,7 +74,6 @@ public class EventRegister {
     public void setSkills(String size) {
         this.skills = size;
     }
-    private String phoneNumber;
 
 
     public String getId() {
@@ -170,9 +170,12 @@ public class EventRegister {
         this.usd = usd;
     }
 
-    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
-
-    public String getPhoneNumber(String phoneNumber) {return phoneNumber;}
+    public String getPhnNbr() {
+        return phnNbr;
+    }
+    public void setPhnNbr(String phnNbr) {
+        this.phnNbr = phnNbr;
+    }
 
 
 

@@ -69,14 +69,14 @@ public class LoginActivity extends AppCompatActivity {
         accessTokenTracker.startTracking();
         profileTracker.startTracking();
         // Progress dialog
-       /* if (Integer.valueOf(pref.getUserID() )>0){
+       if (pref.isLoggedIn()){
             Intent main = new Intent(LoginActivity.this, ProfileActivity.class);
             main.putExtra("name", pref.getName());
 
             main.putExtra("imageUrl", pref.getUrl());
             startActivity(main);
             finish();
-        }*/
+        }
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Profile profile = Profile.getCurrentProfile();
                 nextActivity(profile);
+                pref.setBoolean(true);
                 Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
             }
 

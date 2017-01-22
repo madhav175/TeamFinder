@@ -221,7 +221,13 @@ public class ActivityTinder extends AppCompatActivity {
 
     @OnClick(R.id.undoBtn)
     private void onUndoClick(){
-        mSwipView.undoLastSwipe();
+
+       // mSwipView.undoLastSwipe();
+        Intent main = new Intent(ActivityTinder.this, MatchActivity.class);
+      //  main.putExtra("name", user.getName());
+        // main.putExtra("surname", profile.getLastName());
+       // main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
+        startActivity(main);
     }
 
     private void showDialog() {

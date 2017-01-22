@@ -114,7 +114,7 @@ public class Event_Activity extends Activity {
                     @Override
                     public void onResponse(EventDetails event) {
                         pref.setEventid(event.getId());
-
+                        Toast.makeText(getApplicationContext(), "EVENT#"+event.getId(), Toast.LENGTH_LONG).show();
                         Intent main = new Intent(Event_Activity.this, Member_Activity.class);
 
                         startActivity(main);
@@ -125,6 +125,7 @@ public class Event_Activity extends Activity {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 if(volleyError != null) Log.e("MainActivity", volleyError.getMessage());
+                hideDialog();
             }
         });
 
